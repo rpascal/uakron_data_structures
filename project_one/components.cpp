@@ -4,6 +4,8 @@
 #include <iterator>
 #include <fstream>
 #include <functional>
+#include <string>
+#include <sstream>
 
 using std::cin;
 using std::cout;
@@ -11,6 +13,7 @@ using std::endl;
 using std::function;
 using std::getline;
 using std::ifstream;
+using std::istringstream;
 using std::list;
 using std::string;
 using std::vector;
@@ -35,8 +38,17 @@ void readData(function<void(string &)> lineCallback)
         lineCallback(line);
     }
 }
+
 list<int>::iterator gt(list<int>::iterator start, list<int>::iterator stop, int x)
 {
+    for (list<int>::iterator it = start; it != stop; ++it)
+    {
+        if (*it > x)
+        {
+            return it;
+        }
+    }
+    return stop;
 }
 
 void print(vector<list<int>> adjList)
@@ -51,27 +63,25 @@ void print(vector<list<int>> adjList)
     }
 }
 
-
 int main()
 {
     vector<list<int>> adjList;
 
     readData([&](string &line) {
         list<int> tempList;
-        for (string::iterator it = line.begin(); it != line.end(); ++it)
+
+        std::istringstream iss(line);
+        for (std::string s; iss >> s;)
         {
-            const char &c = *it;
-            if (!isspace(c))
+            int i = std::stoi(s);
+            if (tempList.size() == 0)
             {
-                int i = c - '0';
-                if (tempList.size() == 0)
-                {
-                    tempList.push_back(i);
-                }
-                else
-                {
-                    tempList.push_back(i);
-                }
+                tempList.push_back(i);
+            }
+            else
+            {
+                list<int>::iterator g = gt(tempList.begin(), tempList.end(), i);
+                tempList.insert(g, i);
             }
         }
         adjList.push_back(tempList);
@@ -79,4 +89,3 @@ int main()
 
     print(adjList);
 }
-

@@ -118,6 +118,29 @@ bool connComponent(const list<int> &a, const list<int> &b)
     return false;
 }
 
+bool merge2(list<int> &a, list<int> &b)
+{
+    if (!connComponent(a, b))
+    {
+        return false;
+    }
+    const int aSize = a.size();
+    const int bSize = b.size();
+
+    list<int> &listMergingTo = aSize < bSize ? b : a;
+    list<int> &listMergingFrom = aSize < bSize ? a : b;
+
+    for (auto from = listMergingFrom.begin(); from != listMergingFrom.end(); ++from)
+    {
+        const int i = *from;
+        list<int>::iterator g = gt(listMergingTo.begin(), listMergingTo.end(), i);
+        listMergingTo.insert(g, i);
+    }
+    listMergingTo.unique();
+    listMergingFrom.clear();
+    return true;
+}
+
 int main()
 {
     vector<list<int>> adjList;
@@ -142,7 +165,48 @@ int main()
         adjList.push_back(tempList);
     });
 
-    bool test = connComponent(adjList.front(), adjList.back());
-    cout << "Compare front to back: " << test << '\n';
     print(adjList);
+
+    int inId1 = -2;
+    int inId2 = -2;
+
+    while (true)
+    {
+        cout << "Enter two list ids to potentially merge together or -1 to quit:";
+        cin >> inId1;
+        if (inId1 == -1)
+        {
+            break;
+        }
+        cin >> inId2;
+        if (inId2 == -1)
+        {
+            break;
+        }
+        const int adjListSize = adjList.size();
+        if (inId1 > adjListSize - 1 || inId2 > adjListSize - 1)
+        {
+            cout << "One of the inputed ids is larger than allowed. Max input: " << adjListSize - 1 << "\n";
+        }
+        else
+        {
+            list<int> &list1 = adjList.at(inId1);
+            list<int> &list2 = adjList.at(inId2);
+            const bool merged = merge2(list1, list2);
+            cout << "The lists are " << (merged ? "" : "not ") << "merged."
+                 << "\n";
+            if (merged)
+            {
+                for (vector<list<int>>::iterator vectorListElement = adjList.begin(); vectorListElement != adjList.end(); ++vectorListElement)
+                {
+                    if (vectorListElement->size() == 0)
+                    {
+                        adjList.erase(vectorListElement);
+                        break;
+                    }
+                }
+            }
+            print(adjList);
+        }
+    }
 }

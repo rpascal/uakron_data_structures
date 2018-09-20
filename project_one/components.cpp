@@ -67,7 +67,7 @@ list<int>::iterator gt(list<int>::iterator start, list<int>::iterator stop, int 
     If no element found passed in int must be smaller than all items in list
     therefore return start.
 */
-void print(vector<list<int>> adjList)
+void print(vector<list<int>> &adjList)
 {
     cout << "The adjacency list for your graph \n";
     for (vector<list<int>>::iterator vectorListElement = adjList.begin(); vectorListElement != adjList.end(); ++vectorListElement)

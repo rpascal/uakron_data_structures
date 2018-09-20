@@ -18,6 +18,10 @@ using std::list;
 using std::string;
 using std::vector;
 
+/*
+    Ask user to load a file and loop over lines.
+    Each is passed to callback function.
+*/
 void readData(function<void(string &)> lineCallback)
 {
     ifstream input;
@@ -39,25 +43,38 @@ void readData(function<void(string &)> lineCallback)
     }
 }
 
+/*
+    Find element in list that is one size larger than passed in int.
+    If no element found passed in int must be larger than all items in list
+    therefore return stop.
+*/
 list<int>::iterator gt(list<int>::iterator start, list<int>::iterator stop, int x)
 {
-    for (list<int>::iterator it = start; it != stop; ++it)
+    for (list<int>::iterator listElement = start; listElement != stop; ++listElement)
     {
-        if (*it > x)
+        if (*listElement > x)
         {
-            return it;
+            return listElement;
         }
     }
     return stop;
 }
 
+/*
+    Find element in list that is one size larger than passed in int.
+    If no element found passed in int must be smaller than all items in list
+    therefore return start.
+*/
 void print(vector<list<int>> adjList)
 {
-    for (vector<list<int>>::iterator it = adjList.begin(); it != adjList.end(); ++it)
+    cout << "The adjacency list for your graph \n";
+    for (vector<list<int>>::iterator vectorListElement = adjList.begin(); vectorListElement != adjList.end(); ++vectorListElement)
     {
-        for (auto it2 = it->begin(); it2 != it->end(); ++it2)
+        const int index = vectorListElement - adjList.begin();
+        cout << "List " << index << ": ";
+        for (auto listElement = vectorListElement->begin(); listElement != vectorListElement->end(); ++listElement)
         {
-            cout << *it2 << ' ';
+            cout << *listElement << ' ';
         }
         cout << '\n';
     }
@@ -69,7 +86,7 @@ int main()
 
     readData([&](string &line) {
         list<int> tempList;
-
+        
         std::istringstream iss(line);
         for (std::string s; iss >> s;)
         {

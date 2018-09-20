@@ -6,6 +6,7 @@
 #include <functional>
 #include <string>
 #include <sstream>
+#include <map>
 
 using std::cin;
 using std::cout;
@@ -15,6 +16,7 @@ using std::getline;
 using std::ifstream;
 using std::istringstream;
 using std::list;
+using std::map;
 using std::string;
 using std::vector;
 
@@ -80,13 +82,49 @@ void print(vector<list<int>> adjList)
     }
 }
 
+bool connComponent(const list<int> &a, const list<int> &b)
+{
+    const int aSize = a.size();
+    const int bSize = b.size();
+    map<int, bool> m;
+    const int upperBound = (aSize < bSize ? bSize : aSize);
+
+    list<int>::const_iterator aIterator = a.begin();
+    list<int>::const_iterator bIterator = b.begin();
+
+    for (int i = 0; i < upperBound; i++)
+    {
+        if (i < aSize)
+        {
+            const int currentAValue = *aIterator;
+            if (m[currentAValue])
+            {
+                return true;
+            }
+            m[currentAValue] = true;
+            ++aIterator;
+        }
+        if (i < bSize)
+        {
+            const int currentBValue = *bIterator;
+            if (m[currentBValue])
+            {
+                return true;
+            }
+            m[currentBValue] = true;
+            ++bIterator;
+        }
+    }
+    return false;
+}
+
 int main()
 {
     vector<list<int>> adjList;
 
     readData([&](string &line) {
         list<int> tempList;
-        
+
         std::istringstream iss(line);
         for (std::string s; iss >> s;)
         {
@@ -104,5 +142,7 @@ int main()
         adjList.push_back(tempList);
     });
 
+    bool test = connComponent(adjList.front(), adjList.back());
+    cout << "Compare front to back: " << test << '\n';
     print(adjList);
 }

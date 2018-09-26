@@ -31,6 +31,7 @@ void readData(function<void(string &)> lineCallback)
     cout << "Please enter the graph filename to process: ";
     cin >> filename;
     input.open(filename.c_str());
+    // Keep retrying until file could be opened
     while (input.fail())
     {
         input.clear();
@@ -39,6 +40,7 @@ void readData(function<void(string &)> lineCallback)
         input.open(filename.c_str());
     }
     string line;
+    //Loop over each line in input
     while (getline(input, line))
     {
         lineCallback(line);
@@ -50,13 +52,13 @@ void readData(function<void(string &)> lineCallback)
     If no element found passed in int must be larger than all items in list
     therefore return stop.
 */
-list<int>::iterator gt(list<int>::iterator start, list<int>::iterator stop, int x)
+list<int>::iterator find_gt(list<int>::iterator start, list<int>::iterator stop, int x)
 {
-    for (list<int>::iterator listElement = start; listElement != stop; ++listElement)
+    for (list<int>::iterator currentIterator = start; currentIterator != stop; ++currentIterator)
     {
-        if (*listElement > x)
+        if (*currentIterator > x)
         {
-            return listElement;
+            return currentIterator;
         }
     }
     return stop;
@@ -74,14 +76,19 @@ void print(vector<list<int>> &adjList)
     {
         const int index = vectorListElement - adjList.begin();
         cout << "List " << index << ": ";
-        for (auto listElement = vectorListElement->begin(); listElement != vectorListElement->end(); ++listElement)
+        for (auto currentIterator = vectorListElement->begin(); currentIterator != vectorListElement->end(); ++currentIterator)
         {
-            cout << *listElement << ' ';
+            cout << *currentIterator << ' ';
         }
         cout << '\n';
     }
 }
 
+/*
+    Compare 2 lists to determine if there is shared element
+    between the two lists. 
+    Returns a boolean, true if element shared, false otherwise.
+*/
 bool connComponent(const list<int> &a, const list<int> &b)
 {
     const int aSize = a.size();
@@ -94,23 +101,29 @@ bool connComponent(const list<int> &a, const list<int> &b)
 
     for (int i = 0; i < upperBound; i++)
     {
+        // Make sure we do not try to access element beyond bounds of A
         if (i < aSize)
         {
             const int currentAValue = *aIterator;
+            // Test if value is already in map, if yes return true
             if (m[currentAValue])
             {
                 return true;
             }
+            // Add new value to map
             m[currentAValue] = true;
             ++aIterator;
         }
+        // Make sure we do not try to access element beyond bounds of B
         if (i < bSize)
         {
             const int currentBValue = *bIterator;
+            // Test if value is already in map, if yes return true
             if (m[currentBValue])
             {
                 return true;
             }
+            // Add new value to map
             m[currentBValue] = true;
             ++bIterator;
         }
@@ -118,6 +131,10 @@ bool connComponent(const list<int> &a, const list<int> &b)
     return false;
 }
 
+/*
+    Take two lists and merge the smaller one into the bigger one. 
+    Returns a boolean, true if merge successful, false if merge could not be completed
+*/
 bool merge2(list<int> &a, list<int> &b)
 {
     if (!connComponent(a, b))
@@ -127,16 +144,19 @@ bool merge2(list<int> &a, list<int> &b)
     const int aSize = a.size();
     const int bSize = b.size();
 
+    // Determine which list we will merge into
     list<int> &listMergingTo = aSize < bSize ? b : a;
     list<int> &listMergingFrom = aSize < bSize ? a : b;
 
     for (auto from = listMergingFrom.begin(); from != listMergingFrom.end(); ++from)
     {
         const int i = *from;
-        list<int>::iterator g = gt(listMergingTo.begin(), listMergingTo.end(), i);
+        list<int>::iterator g = find_gt(listMergingTo.begin(), listMergingTo.end(), i);
         listMergingTo.insert(g, i);
     }
+    // Make the merged list unique
     listMergingTo.unique();
+    // Clear out old list
     listMergingFrom.clear();
     return true;
 }
@@ -151,6 +171,7 @@ int main()
         std::istringstream iss(line);
         for (std::string s; iss >> s;)
         {
+            // Convert string to an int
             int i = std::stoi(s);
             if (tempList.size() == 0)
             {
@@ -158,7 +179,7 @@ int main()
             }
             else
             {
-                list<int>::iterator g = gt(tempList.begin(), tempList.end(), i);
+                list<int>::iterator g = find_gt(tempList.begin(), tempList.end(), i);
                 tempList.insert(g, i);
             }
         }
@@ -197,10 +218,12 @@ int main()
                  << "\n";
             if (merged)
             {
+                // Loop over the adjList to remove any list elements that no longer have any values
                 for (vector<list<int>>::iterator vectorListElement = adjList.begin(); vectorListElement != adjList.end(); ++vectorListElement)
                 {
                     if (vectorListElement->size() == 0)
                     {
+                        // Remove from adjList
                         adjList.erase(vectorListElement);
                         break;
                     }

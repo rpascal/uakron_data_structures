@@ -1,3 +1,8 @@
+// Ryan Pascal
+// Data Structures
+// Project 1 
+// 10/1/2018
+
 #include <iostream>
 #include <vector>
 #include <list>

@@ -32,16 +32,18 @@ int main()
 
     map<int, vector<Employee>> mapEmps = mapEmpDept(emps);
 
-    unordered_map<int, vector<Employee>> mapEmps = umapEmpDept(emps);
+    map<int, vector<Employee>> mapEmpsSalRange = mapSalRange(emps);
+
+    unordered_map<int, vector<Employee>> unOrderedMapEmps = umapEmpDept(emps);
 
     unordered_map<int, vector<Employee>> uEmp;
-    for (int i = 0; i < emps.size(); ++i)
-    {
-        uEmp[emps[i].id() / 100].push_back(emps[i]);
-    }
+    // for (int i = 0; i < emps.size(); ++i)
+    // {
+    //     uEmp[emps[i].id() / 100].push_back(emps[i]);
+    // }
 
-    cout << "Number of buckets in uEmp " << uEmp.size() << endl;
+    // cout << "Number of buckets in uEmp " << uEmp.size() << endl;
 
-    for (auto i = uEmp.begin(); i != uEmp.end(); ++i)
-        cout << "Dept " << i->first << " number of employees is " << i->second.size() << endl;
+    // for (auto i = uEmp.begin(); i != uEmp.end(); ++i)
+    //     cout << "Dept " << i->first << " number of employees is " << i->second.size() << endl;
 }

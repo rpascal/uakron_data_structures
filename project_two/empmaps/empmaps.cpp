@@ -77,7 +77,8 @@ vector<Employee> employees()
     return emps;
 }
 
-map<int,vector<Employee>> mapEmpDept(vector<Employee> & emp){
+map<int, vector<Employee>> mapEmpDept(vector<Employee> &emp)
+{
 
     map<int, vector<Employee>> empMap;
     for (int i = 0; i < emp.size(); ++i)
@@ -85,11 +86,18 @@ map<int,vector<Employee>> mapEmpDept(vector<Employee> & emp){
         empMap[emp[i].id() / 100].push_back(emp[i]);
     }
     return empMap;
-
 }
 
 // map<int,vector<Employee>> mapSalRange(vector<Employee> & emp);
 // void printSalRange(map<int,vector<Employee>> & salRange);
-// unordered_map<int,vector<Employee>> umapEmpDept(vector<Employee> & emp);
+unordered_map<int, vector<Employee>> umapEmpDept(vector<Employee> &emp)
+{
+    unordered_map<int, vector<Employee>> empMap;
+    for (int i = 0; i < emp.size(); ++i)
+    {
+        empMap[emp[i].id() / 100].push_back(emp[i]);
+    }
+    return empMap;
+}
 // unordered_map<int,vector<Employee>> umapSalRange(vector<Employee> & emp);
 // void uprintSalRange(unordered_map<int,vector<Employee>> & salRange);

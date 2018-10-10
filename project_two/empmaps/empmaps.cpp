@@ -99,7 +99,19 @@ map<int, vector<Employee>> mapSalRange(vector<Employee> &emp)
     }
     return empMap;
 }
-// void printSalRange(map<int,vector<Employee>> & salRange);
+
+void printSalRange(map<int, vector<Employee>> &salRange)
+{
+
+    //ORDERED Map Salary Range with most employees: 130000 containing 6400
+//employees.
+
+    for (auto i = salRange.begin(); i != salRange.end(); ++i)
+    {
+        cout << "ORDERED Map Salary Range:  " << i->first << " number of employees is " << i->second.size() << endl;
+    }
+}
+
 unordered_map<int, vector<Employee>> umapEmpDept(vector<Employee> &emp)
 {
     unordered_map<int, vector<Employee>> empMap;

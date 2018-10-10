@@ -88,13 +88,13 @@ map<int, vector<Employee>> mapEmpDept(vector<Employee> &emp)
     return empMap;
 }
 
-map<int,vector<Employee>> mapSalRange(vector<Employee> & emp){
+map<int, vector<Employee>> mapSalRange(vector<Employee> &emp)
+{
     map<int, vector<Employee>> empMap;
     for (int i = 0; i < emp.size(); ++i)
     {
         int rangeLower = emp[i].sal() / 10000;
-        int trueRange = rangeLower*10000;
-        cout << emp[i].sal() << " " << trueRange << endl;
+        int trueRange = rangeLower * 10000;
         empMap[trueRange].push_back(emp[i]);
     }
     return empMap;
@@ -109,5 +109,15 @@ unordered_map<int, vector<Employee>> umapEmpDept(vector<Employee> &emp)
     }
     return empMap;
 }
-// unordered_map<int,vector<Employee>> umapSalRange(vector<Employee> & emp);
+unordered_map<int, vector<Employee>> umapSalRange(vector<Employee> &emp)
+{
+    unordered_map<int, vector<Employee>> empMap;
+    for (int i = 0; i < emp.size(); ++i)
+    {
+        int rangeLower = emp[i].sal() / 10000;
+        int trueRange = rangeLower * 10000;
+        empMap[trueRange].push_back(emp[i]);
+    }
+    return empMap;
+}
 // void uprintSalRange(unordered_map<int,vector<Employee>> & salRange);

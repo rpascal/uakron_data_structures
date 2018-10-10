@@ -36,6 +36,8 @@ int main()
 
     unordered_map<int, vector<Employee>> unOrderedMapEmps = umapEmpDept(emps);
 
+    unordered_map<int, vector<Employee>> unOrderedMapEmpsRange = umapSalRange(emps);
+
     unordered_map<int, vector<Employee>> uEmp;
     // for (int i = 0; i < emps.size(); ++i)
     // {

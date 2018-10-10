@@ -1,51 +1,41 @@
-#include <iostream>
-#include <fstream>
 #include "./Employee/Employee.h"
 #include "./empmaps/empmaps.h"
+#include <iostream>
+#include <fstream>
 #include <unordered_map>
 #include <ctime>
 #include <map>
 #include <vector>
+#include <iostream>
+#include <vector>
+#include <list>
+#include <iterator>
+#include <fstream>
+#include <string>
 
-
-using std::cout;
 using std::cin;
+using std::cout;
 using std::endl;
-using std::vector;
-using std::string;
-using std::map;
-using std::unordered_map;
 using std::ifstream;
+using std::list;
+using std::map;
 using std::ofstream;
-using std::stringstream;
+using std::string;
+using std::unordered_map;
+using std::vector;
 
 int main()
 {
-    Employee e1(101, "Samuel Adams", 1000);  // Samuel made only $1000 a year
-    Employee e2(203, "Oprah Winfrey", 80000000);  // Oprah makes $80 million a year
-    Employee e3(102, "George Washington", 100);  // George got $100 a year
-    Employee e4(202, "George Clooney", 20000000);  // George got $20 million last year
-    Employee e5(201, "Denzel Washington", 10000000);  // George got $10 million last year
+    vector<Employee> emps = employees();
 
-    e1.print(cout);
-    cout << endl;
-    e2.print(cout);
-    cout << endl;
-    e3.print(cout);
-    cout<<endl;
+    cout << "Number of employees: " << emps.size() << endl;
 
-    vector<Employee> emp;
-    emp.push_back(e1);
-    emp.push_back(e2);
-    emp.push_back(e3);
-    emp.push_back(e4);
-    emp.push_back(e5);
-    cout << "Number of employees: "  << emp.size()<< endl;
+    map<int, vector<Employee>> mapEmps = mapEmpDept(emps);
 
-    unordered_map<int,vector<Employee>> uEmp;
-    for (int i = 0; i < emp.size(); ++i)
+    unordered_map<int, vector<Employee>> uEmp;
+    for (int i = 0; i < emps.size(); ++i)
     {
-        uEmp[emp[i].id()/100].push_back(emp[i]);
+        uEmp[emps[i].id() / 100].push_back(emps[i]);
     }
 
     cout << "Number of buckets in uEmp " << uEmp.size() << endl;

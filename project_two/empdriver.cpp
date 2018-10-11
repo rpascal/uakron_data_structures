@@ -1,57 +1,56 @@
+/*
+    Ryan Pascal
+    Data Structures
+    Project 2
+*/
+
 #include "./Employee/Employee.h"
 #include "./empmaps/empmaps.h"
-#include <iostream>
-#include <fstream>
 #include <unordered_map>
 #include <ctime>
 #include <map>
 #include <vector>
-#include <iostream>
-#include <vector>
-#include <list>
-#include <iterator>
-#include <fstream>
-#include <string>
 
-using std::cin;
 using std::cout;
 using std::endl;
-using std::ifstream;
-using std::list;
 using std::map;
-using std::ofstream;
-using std::string;
 using std::unordered_map;
 using std::vector;
 
 int main()
 {
+    clock_t start, stop;
     vector<Employee> emps = employees();
 
     cout << "Number of employees: " << emps.size() << endl;
 
+    start = clock();
     map<int, vector<Employee>> mapEmps = mapEmpDept(emps);
+    stop = clock();
+    cout << "ORDERED Map creation with department as key clock ticks: " << double(stop - start) << endl;
+    cout << "ORDERED Map number of departments: " << mapEmps.size() << endl;
 
+    start = clock();
     map<int, vector<Employee>> mapEmpsSalRange = mapSalRange(emps);
+    stop = clock();
+    cout << "ORDERED Map creation with salary as key clock ticks: " << double(stop - start) << endl;
+    cout << "ORDERED Map number of salary ranges: " << mapEmpsSalRange.size() << endl;
 
     printSalRange(mapEmpsSalRange);
     
+    cout << endl;
+
+    start = clock();
     unordered_map<int, vector<Employee>> unOrderedMapEmps = umapEmpDept(emps);
+    stop = clock();
+    cout << "UNORDERED Map creation with department as key clock ticks:" << double(stop - start) << endl;
+    cout << "UNORDERED Map number of departments: " << unOrderedMapEmps.size() << endl;
 
+    start = clock();
     unordered_map<int, vector<Employee>> unOrderedMapEmpsRange = umapSalRange(emps);
+    stop = clock();
+    cout << "UNORDERED Map creation with salary as key clock ticks: " << double(stop - start) << endl;
+    cout << "UNORDERED Map number of salary ranges: " << unOrderedMapEmpsRange.size() << endl;
 
-    unordered_map<int, vector<Employee>> uEmp;
-
-
-
-
-    // for (int i = 0; i < emps.size(); ++i)
-    // {
-    //     uEmp[emps[i].id() / 100].push_back(emps[i]);
-    // }
-
-    // cout << "Number of buckets in uEmp " << uEmp.size() << endl;
-
-    // for (auto i = uEmp.begin(); i != uEmp.end(); ++i)
-    //     cout << "Dept " << i->first << " number of employees is " << i->second.size() << endl;
+    uprintSalRange(unOrderedMapEmpsRange);
 }

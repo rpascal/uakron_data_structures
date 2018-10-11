@@ -1,7 +1,12 @@
+/*
+    Ryan Pascal
+    Data Structures
+    Project 2
+*/
+
 #include "empmaps.h"
 
 #include "../Employee/Employee.h"
-#include <iostream>
 #include <fstream>
 #include <unordered_map>
 #include <ctime>
@@ -23,11 +28,8 @@ using std::function;
 using std::getline;
 using std::ifstream;
 using std::istringstream;
-using std::list;
 using std::map;
-using std::ofstream;
 using std::string;
-using std::stringstream;
 using std::unordered_map;
 using std::vector;
 
@@ -54,7 +56,10 @@ void readData(function<void(string &)> lineCallback)
     //Loop over each line in input
     while (getline(input, line))
     {
-        lineCallback(line);
+        if (line.length() > 0)
+        {
+            lineCallback(line);
+        }
     }
 }
 
@@ -102,14 +107,22 @@ map<int, vector<Employee>> mapSalRange(vector<Employee> &emp)
 
 void printSalRange(map<int, vector<Employee>> &salRange)
 {
-
-    //ORDERED Map Salary Range with most employees: 130000 containing 6400
-//employees.
+    int largestSize = 0;
+    int largestGrouping = 0;
 
     for (auto i = salRange.begin(); i != salRange.end(); ++i)
     {
-        cout << "ORDERED Map Salary Range:  " << i->first << " number of employees is " << i->second.size() << endl;
+        int empCount = i->second.size();
+        int groupCount = i->first;
+        cout << "ORDERED Map Salary Range " << groupCount << " contains " << empCount << endl;
+        if (empCount > largestSize)
+        {
+            largestGrouping = groupCount;
+            largestSize = empCount;
+        }
     }
+
+    cout << "ORDERED Map Salary Range with most employees: " << largestGrouping << " containing " << largestSize << " employees" << endl;
 }
 
 unordered_map<int, vector<Employee>> umapEmpDept(vector<Employee> &emp)
@@ -132,4 +145,22 @@ unordered_map<int, vector<Employee>> umapSalRange(vector<Employee> &emp)
     }
     return empMap;
 }
-// void uprintSalRange(unordered_map<int,vector<Employee>> & salRange);
+void uprintSalRange(unordered_map<int, vector<Employee>> &salRange)
+{
+    int largestSize = 0;
+    int largestGrouping = 0;
+
+    for (auto i = salRange.begin(); i != salRange.end(); ++i)
+    {
+        int empCount = i->second.size();
+        int groupCount = i->first;
+        cout << "UNORDERED Map Salary Range " << groupCount << " contains " << empCount << endl;
+        if (empCount > largestSize)
+        {
+            largestGrouping = groupCount;
+            largestSize = empCount;
+        }
+    }
+
+    cout << "UNORDERED Map Salary Range with most employees: " << largestGrouping << " containing " << largestSize << " employees" << endl;
+}

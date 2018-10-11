@@ -1,5 +1,11 @@
 
 
+/*
+    Ryan Pascal
+    Data Structures
+    Project 2
+*/
+
 #ifndef EMPMAPS_H_INCLUDED
 #define EMPMAPS_H_INCLUDED
 #include <vector>

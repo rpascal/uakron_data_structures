@@ -63,6 +63,9 @@ void readData(function<void(string &)> lineCallback)
     }
 }
 
+/*
+    Read data file and build a vector of Employees
+*/
 vector<Employee> employees()
 {
     vector<Employee> emps;
@@ -75,29 +78,39 @@ vector<Employee> employees()
         iss >> last_name;
         string salary;
         iss >> salary;
-
+        // Create an employee from the data line
         Employee emp(std::stoi(identifier), last_name, std::stoi(salary));
         emps.push_back(emp);
     });
     return emps;
 }
 
+/*
+    Build a map of Employees from the vector of employees 
+    based on the department id
+*/
 map<int, vector<Employee>> mapEmpDept(vector<Employee> &emp)
 {
 
     map<int, vector<Employee>> empMap;
     for (int i = 0; i < emp.size(); ++i)
     {
+        // Extract out the department id and insert
         empMap[emp[i].id() / 100].push_back(emp[i]);
     }
     return empMap;
 }
 
+/*
+    Build a map of Employees from the vector of employees 
+    based on salary range
+*/
 map<int, vector<Employee>> mapSalRange(vector<Employee> &emp)
 {
     map<int, vector<Employee>> empMap;
     for (int i = 0; i < emp.size(); ++i)
     {
+        // Extract the salary range and insert
         int rangeLower = emp[i].sal() / 10000;
         int trueRange = rangeLower * 10000;
         empMap[trueRange].push_back(emp[i]);
@@ -105,6 +118,10 @@ map<int, vector<Employee>> mapSalRange(vector<Employee> &emp)
     return empMap;
 }
 
+/*
+    Print the map of salary ranges
+    Determine which range has the most employees
+*/
 void printSalRange(map<int, vector<Employee>> &salRange)
 {
     int largestSize = 0;
@@ -115,6 +132,7 @@ void printSalRange(map<int, vector<Employee>> &salRange)
         int empCount = i->second.size();
         int groupCount = i->first;
         cout << "ORDERED Map Salary Range " << groupCount << " contains " << empCount << endl;
+        // Check to see if we found a range with more employees
         if (empCount > largestSize)
         {
             largestGrouping = groupCount;
@@ -125,6 +143,10 @@ void printSalRange(map<int, vector<Employee>> &salRange)
     cout << "ORDERED Map Salary Range with most employees: " << largestGrouping << " containing " << largestSize << " employees" << endl;
 }
 
+/*
+    Build a unordered map of Employees from the vector of employees 
+    based on the department id
+*/
 unordered_map<int, vector<Employee>> umapEmpDept(vector<Employee> &emp)
 {
     unordered_map<int, vector<Employee>> empMap;
@@ -134,6 +156,11 @@ unordered_map<int, vector<Employee>> umapEmpDept(vector<Employee> &emp)
     }
     return empMap;
 }
+
+/*
+    Build a unordered map of Employees from the vector of employees 
+    based on salary range
+*/
 unordered_map<int, vector<Employee>> umapSalRange(vector<Employee> &emp)
 {
     unordered_map<int, vector<Employee>> empMap;
@@ -145,6 +172,11 @@ unordered_map<int, vector<Employee>> umapSalRange(vector<Employee> &emp)
     }
     return empMap;
 }
+
+/*
+    Print the unordered map of salary ranges
+    Determine which range has the most employees
+*/
 void uprintSalRange(unordered_map<int, vector<Employee>> &salRange)
 {
     int largestSize = 0;
@@ -155,6 +187,7 @@ void uprintSalRange(unordered_map<int, vector<Employee>> &salRange)
         int empCount = i->second.size();
         int groupCount = i->first;
         cout << "UNORDERED Map Salary Range " << groupCount << " contains " << empCount << endl;
+        // Check to see if we found a range with more employees
         if (empCount > largestSize)
         {
             largestGrouping = groupCount;

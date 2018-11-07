@@ -11,6 +11,8 @@
 #include <vector>
 #include <sstream>
 #include "./heapsort/heapsort.h"
+#include "./insertsort/insertsort.h"
+
 
 using std::cin;
 using std::cout;
@@ -82,6 +84,12 @@ int main(int argc, const char *argv[])
 
     heap.sort();
     print(heap.getVec());
+
+    InsertSort inser(dataSet);
+    print(inser.getVec());
+
+    inser.sort();
+    print(inser.getVec());
 
     std::cout << "Hello, World!\n";
     return 0;

@@ -12,7 +12,7 @@
 #include <sstream>
 #include "./heapsort/heapsort.h"
 #include "./insertsort/insertsort.h"
-
+#include "./mergesort/mergesort.h"
 
 using std::cin;
 using std::cout;
@@ -79,18 +79,25 @@ int main(int argc, const char *argv[])
         }
     });
 
+    cout << "HEAP" << endl;
     HeapSort heap(dataSet);
     print(heap.getVec());
 
     heap.sort();
     print(heap.getVec());
-
+    cout << "InsertSort" << endl;
     InsertSort inser(dataSet);
     print(inser.getVec());
 
     inser.sort();
     print(inser.getVec());
 
-    std::cout << "Hello, World!\n";
+    cout << "MergeSort" << endl;
+    MergeSort merg(dataSet);
+    print(merg.getVec());
+
+    merg.sort();
+    print(merg.getVec());
+
     return 0;
 }

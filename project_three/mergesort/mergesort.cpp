@@ -1,13 +1,22 @@
-#ifndef mergesort_h
-#define mergesort_h
+#include "mergesort.h"
+
+MergeSort::MergeSort(vector<int> a)
+{
+    vec = a;
+}
+
+void MergeSort::sort()
+{
+    vector<int> &a = vec;
+    mergeSort(a);
+}
 
 /**
  * Mergesort algorithm (driver).
  */
-template <typename Comparable>
-void mergeSort(vector<Comparable> &a)
+void MergeSort::mergeSort(vector<int> &a)
 {
-    vector<Comparable> tmpArray(a.size());
+    vector<int> tmpArray(a.size());
 
     mergeSort(a, tmpArray, 0, a.size() - 1);
 }
@@ -19,9 +28,8 @@ void mergeSort(vector<Comparable> &a)
  * left is the left-most index of the subarray.
  * right is the right-most index of the subarray.
  */
-template <typename Comparable>
-void mergeSort(vector<Comparable> &a,
-               vector<Comparable> &tmpArray, int left, int right)
+void MergeSort::mergeSort(vector<int> &a,
+                          vector<int> &tmpArray, int left, int right)
 {
     if (left < right)
     {
@@ -39,9 +47,9 @@ void mergeSort(vector<Comparable> &a,
  * rightPos is the index of the start of the second half.
  * rightEnd is the right-most index of the subarray.
  */
-template <typename Comparable>
-void merge(vector<Comparable> &a, vector<Comparable> &tmpArray,
-           int leftPos, int rightPos, int rightEnd)
+
+void MergeSort::merge(vector<int> &a, vector<int> &tmpArray,
+                      int leftPos, int rightPos, int rightEnd)
 {
     int leftEnd = rightPos - 1;
     int tmpPos = leftPos;
@@ -63,5 +71,3 @@ void merge(vector<Comparable> &a, vector<Comparable> &tmpArray,
     for (int i = 0; i < numElements; ++i, --rightEnd)
         a[rightEnd] = std::move(tmpArray[rightEnd]);
 }
-
-#endif // mergesort_h

@@ -13,6 +13,7 @@
 #include "./heapsort/heapsort.h"
 #include "./insertsort/insertsort.h"
 #include "./mergesort/mergesort.h"
+#include "./quicksort/quicksort.h"
 
 using std::cin;
 using std::cout;
@@ -98,6 +99,13 @@ int main(int argc, const char *argv[])
 
     merg.sort();
     print(merg.getVec());
+
+    cout << "QuickSort" << endl;
+    QuickSort quick(dataSet);
+    print(quick.getVec());
+
+    quick.sort();
+    print(quick.getVec());
 
     return 0;
 }

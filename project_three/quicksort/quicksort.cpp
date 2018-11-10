@@ -46,14 +46,12 @@ const int &QuickSort::median3(vector<int> &a, int left, int right)
  */
 void QuickSort::quicksort(vector<int> &a, int left, int right)
 {
-    // if(left > right){
-    //     std::swap(a[left], a[right]);
-    //     return;
-    // }
+    if (left + 1 >= right)
+    {
+        std::swap(a[left], a[right]);
+        return;
+    }
 
-    std::cout << "Left: "<< left << " Right: "<< right << '\n';
-    // if (left + 10 <= right)
-    // {
     const int &pivot = median3(a, left, right);
 
     //begin partitioning
@@ -75,8 +73,4 @@ void QuickSort::quicksort(vector<int> &a, int left, int right)
     std::swap(a[i], a[right - 1]); //restore pivot
     quicksort(a, left, i - 1);
     quicksort(a, i + 1, right);
-    // }
-
-    // else //do an insertion sort on the subarray
-    //     insertionSort(a, left, right);
 }

@@ -181,13 +181,13 @@ void runLargeDataSets(int n)
     stop = clock();
     cout << "heap sort random: " << runtime(start, stop) << endl;
 
-    HeapSort heapAsc(randomVec);
+    HeapSort heapAsc(ascVec);
     start = clock();
     heapAsc.sort();
     stop = clock();
     cout << "heap sort ascending: " << runtime(start, stop) << endl;
 
-    HeapSort heapDesc(randomVec);
+    HeapSort heapDesc(descVec);
     start = clock();
     heapDesc.sort();
     stop = clock();
@@ -202,13 +202,13 @@ void runLargeDataSets(int n)
     stop = clock();
     cout << "merge sort random: " << runtime(start, stop) << endl;
 
-    MergeSort mergeAsc(randomVec);
+    MergeSort mergeAsc(ascVec);
     start = clock();
     mergeAsc.sort();
     stop = clock();
     cout << "merge sort ascending: " << runtime(start, stop) << endl;
 
-    MergeSort mergeDesc(randomVec);
+    MergeSort mergeDesc(descVec);
     start = clock();
     mergeDesc.sort();
     stop = clock();
@@ -223,13 +223,13 @@ void runLargeDataSets(int n)
     stop = clock();
     cout << "quick sort random: " << runtime(start, stop) << endl;
 
-    QuickSort quickAsc(randomVec);
+    QuickSort quickAsc(ascVec);
     start = clock();
     quickAsc.sort();
     stop = clock();
     cout << "quick sort ascending: " << runtime(start, stop) << endl;
 
-    QuickSort quickDesc(randomVec);
+    QuickSort quickDesc(descVec);
     start = clock();
     quickDesc.sort();
     stop = clock();
@@ -244,13 +244,13 @@ void runLargeDataSets(int n)
     stop = clock();
     cout << "insertion sort random: " << runtime(start, stop) << endl;
 
-    InsertSort insertionAsc(randomVec);
+    InsertSort insertionAsc(ascVec);
     start = clock();
     insertionAsc.sort();
     stop = clock();
     cout << "insertion sort ascending: " << runtime(start, stop) << endl;
 
-    InsertSort insertionDesc(randomVec);
+    InsertSort insertionDesc(descVec);
     start = clock();
     insertionDesc.sort();
     stop = clock();

@@ -1,6 +1,6 @@
 #include <vector>
 #include <iostream>
-#include "mazeCell.h"
+#include "../mazeCell/mazeCell.h"
 
 #ifndef MAZE_H_INCLUDED
 #define MAZE_H_INCLUDED

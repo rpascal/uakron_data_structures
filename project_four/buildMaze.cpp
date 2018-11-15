@@ -2,6 +2,9 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include "./mazeCell/mazeCell.h"
+#include "./maze/maze.h"
+#include "./DisjSets/DisjSets.h"
 
 using std::cin;
 using std::cout;
@@ -21,7 +24,10 @@ int main(int argc, const char *argv[])
     string seeIteration;
 
     inputData(rows, cols, seeIteration);
-    cout << "Hello world" << rows << "  " << cols << "  " << seeIteration << "  " << endl;
+
+    maze m(rows, cols);
+
+    cout << "Hello world" << m.getRow() << "  " << m.getCol() << "  " << seeIteration << "  " << endl;
     return 0;
 }
 
@@ -39,7 +45,7 @@ void inputData(int &rows, int &cols, string &seeIteration)
             }
             else
             {
-                cout << "Please enter an integer greater than 0" << endl;
+                cout << "Please enter an integer greater than 1" << endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
@@ -64,7 +70,7 @@ void inputData(int &rows, int &cols, string &seeIteration)
             }
             else
             {
-                cout << "Please enter an integer greater than 0" << endl;
+                cout << "Please enter an integer greater than 1" << endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }

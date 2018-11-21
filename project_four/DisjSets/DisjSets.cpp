@@ -1,10 +1,27 @@
 #include "DisjSets.h"
+#include <iostream>
+using std::cout;
 
 /**
  * Construct the disjoint sets object.
  */
-DisjSets::DisjSets(int numElements) : s{numElements, -1}
+DisjSets::DisjSets(int numElements) // : s{numElements, -1}
 {
+	// cout << numElements << endl;
+	for (int i = 0; i < numElements; i++)
+	{
+		s.push_back(-1);
+	}
+}
+
+void DisjSets::print()
+{
+	// std::cout << "Hello " << s.size() << endl;
+
+	for (std::vector<int>::const_iterator i = s.begin(); i != s.end(); ++i)
+		std::cout << *i << ' ';
+
+	cout << endl;
 }
 
 /**
@@ -34,5 +51,38 @@ void DisjSets::unionSets(int root1, int root2)
  */
 int DisjSets::find(int x)
 {
-	//write some code
+
+	if (s[x] < 0)
+	{
+		return x;
+	}
+	else
+	{
+		// const int i = find(s[x]);
+		// s[x] = i;
+		return s[ x ] = find( s[ x ] );
+
+	}
+
+	// if (s[x] < 0)
+	// {
+	// 	return x;
+	// }
+	// else
+	// {
+
+	// 	const int parent = s[x];
+	// 	cout << "parent: " << parent << endl;
+	// 	if (parent < 0)
+	// 	{
+	// 		return s[x] = find(s[parent]);
+	// 	}
+	// 	else
+	// 	{
+	// 		const int grandparent = s[parent];
+	// 		cout << "grandparent: " << grandparent << endl;
+
+	// 		return s[x] = find(s[grandparent]);
+	// 	}
+	// }
 }

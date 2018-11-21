@@ -15,7 +15,7 @@ using std::streamsize;
 using std::string;
 
 void twoRandom(int &n1, int &n2, int maxN);
-bool isConnected(int n1, int n2);
+bool isConnected(int n1, int n2, DisjSets &ds);
 void inputData(int &rows, int &cols, string &seeIteration);
 
 int main(int argc, const char *argv[])
@@ -34,7 +34,10 @@ int main(int argc, const char *argv[])
 
     const int lastCell = m.getTotal() - 1;
     int i = 0;
-    // while (!isConnected(0, lastCell))
+    // cout << m.getTotal() << endl;
+    DisjSets ds(m.getTotal());
+    ds.print();
+    // while (!isConnected(0, lastCell, ds))
     while (i != 10)
 
     {
@@ -42,15 +45,21 @@ int main(int argc, const char *argv[])
         int r1 = -1;
         int r2 = -1;
         twoRandom(r1, r2, lastCell);
-
-        if (m.neighbors(r1, r2))
+        // && 
+        if (!isConnected(r1, r2, ds) && m.neighbors(r1, r2))
         {
             i++;
 
             m.smashWall(r1, r2);
+            cout << "Neighbors " << r1 << ", " << r2 << " wall smashed below" << endl;
+            ds.unionSets(r1, r2);
+
+            ds.print();
 
             if (seeIteration == "y")
             {
+                cout << "Neighbors " << r1 << ", " << r2 << " wall smashed below" << endl;
+
                 m.printMaze();
             }
         }
@@ -65,9 +74,9 @@ void twoRandom(int &n1, int &n2, int maxN)
     n2 = rand() % maxN + 1;
 }
 
-bool isConnected(int n1, int n2)
+bool isConnected(int n1, int n2, DisjSets &ds)
 {
-    return false;
+    return ds.find(n1) == ds.find(n2);
 }
 
 void inputData(int &rows, int &cols, string &seeIteration)

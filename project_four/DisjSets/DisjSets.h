@@ -26,6 +26,7 @@ public:
 
   int find(int x); // you will write code per problem 8.16a in our book
   void unionSets(int root1, int root2);
+  void print();
 
 private:
   vector<int> s;

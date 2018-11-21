@@ -60,7 +60,6 @@ bool maze::neighbors(int cell, int neigh) const
 // code to smashWall(a,b) and to smashWall(b,a)
 void maze::smashWall(int cell, int neigh)
 {
-    cout << "Neighbors " << cell << ", " << neigh << " wall smashed below" << endl;
 
     int cellCol = cell % getCol();
     int cellRow = floor((cell - 1) / getRow());

@@ -5,6 +5,7 @@
 #include "./mazeCell/mazeCell.h"
 #include "./maze/maze.h"
 #include "./DisjSets/DisjSets.h"
+#include <stdlib.h>
 
 using std::cin;
 using std::cout;
@@ -19,6 +20,8 @@ void inputData(int &rows, int &cols, string &seeIteration);
 
 int main(int argc, const char *argv[])
 {
+    srand(time(NULL));
+
     int rows = 0;
     int cols = 0;
     string seeIteration;
@@ -27,8 +30,44 @@ int main(int argc, const char *argv[])
 
     maze m(rows, cols);
 
-    cout << "Hello world" << m.getRow() << "  " << m.getCol() << "  " << seeIteration << "  " << endl;
+    m.printMaze();
+
+    const int lastCell = m.getTotal() - 1;
+    int i = 0;
+    // while (!isConnected(0, lastCell))
+    while (i != 10)
+
+    {
+
+        int r1 = -1;
+        int r2 = -1;
+        twoRandom(r1, r2, lastCell);
+
+        if (m.neighbors(r1, r2))
+        {
+            i++;
+
+            m.smashWall(r1, r2);
+
+            if (seeIteration == "y")
+            {
+                m.printMaze();
+            }
+        }
+    }
+
     return 0;
+}
+
+void twoRandom(int &n1, int &n2, int maxN)
+{
+    n1 = rand() % maxN + 1;
+    n2 = rand() % maxN + 1;
+}
+
+bool isConnected(int n1, int n2)
+{
+    return false;
 }
 
 void inputData(int &rows, int &cols, string &seeIteration)

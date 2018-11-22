@@ -39,13 +39,20 @@ maze::maze(int r, int c)
 bool maze::neighbors(int cell, int neigh) const
 {
     int cellCol = cell % getCol();
-    int cellRow = floor((cell - 1) / getRow());
+    int cellRow = cell / getCol(); //floor((cell - 1) / getRow());
 
     int neighCol = neigh % getCol();
-    int neighRow = floor((neigh - 1) / getRow());
+    int neighRow = neigh / getCol(); //floor((neigh - 1) / getRow());
 
     int colDif = cellCol - neighCol;
     int rowDif = cellRow - neighRow;
+
+    // cout << "cell: " << cell << " "
+    //      << "neigh: " << neigh << endl;
+    // cout << "cellCol: " << cellCol << " "
+    //      << "cellRow: " << cellRow << endl;
+    // cout << "neighCol: " << neighCol << " "
+    //      << "neighRow: " << neighRow << endl;
 
     if (abs(colDif) > 1 || abs(rowDif) > 1)
     {
@@ -62,10 +69,10 @@ void maze::smashWall(int cell, int neigh)
 {
 
     int cellCol = cell % getCol();
-    int cellRow = floor((cell - 1) / getRow());
+    int cellRow = cell / getCol(); //floor((cell - 1) / getRow());
 
     int neighCol = neigh % getCol();
-    int neighRow = floor((neigh - 1) / getRow());
+    int neighRow = neigh / getCol(); //floor((neigh - 1) / getRow());
 
     int colDif = cellCol - neighCol;
     int rowDif = cellRow - neighRow;
@@ -141,4 +148,5 @@ void maze::printMaze()
         }
     }
     cout << endl;
+
 }

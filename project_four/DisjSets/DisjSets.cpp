@@ -5,13 +5,8 @@ using std::cout;
 /**
  * Construct the disjoint sets object.
  */
-DisjSets::DisjSets(int numElements) // : s{numElements, -1}
+DisjSets::DisjSets(int numElements) : s(numElements, -1)
 {
-	// cout << numElements << endl;
-	for (int i = 0; i < numElements; i++)
-	{
-		s.push_back(-1);
-	}
 }
 
 void DisjSets::print()
@@ -58,31 +53,17 @@ int DisjSets::find(int x)
 	}
 	else
 	{
-		// const int i = find(s[x]);
-		// s[x] = i;
-		return s[ x ] = find( s[ x ] );
+		const int parent = s[x];
+		const int grandparent = s[parent];
 
+		if (grandparent < 0)
+		{
+			return parent;
+		}
+		else
+		{
+
+			return s[x] = find(grandparent);
+		}
 	}
-
-	// if (s[x] < 0)
-	// {
-	// 	return x;
-	// }
-	// else
-	// {
-
-	// 	const int parent = s[x];
-	// 	cout << "parent: " << parent << endl;
-	// 	if (parent < 0)
-	// 	{
-	// 		return s[x] = find(s[parent]);
-	// 	}
-	// 	else
-	// 	{
-	// 		const int grandparent = s[parent];
-	// 		cout << "grandparent: " << grandparent << endl;
-
-	// 		return s[x] = find(s[grandparent]);
-	// 	}
-	// }
 }

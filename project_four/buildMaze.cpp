@@ -34,35 +34,29 @@ int main(int argc, const char *argv[])
 
     const int lastCell = m.getTotal() - 1;
     int i = 0;
-    // cout << m.getTotal() << endl;
     DisjSets ds(m.getTotal());
-    ds.print();
-    // while (!isConnected(0, lastCell, ds))
-    while (i != 10)
 
+    while (!isConnected(0, lastCell, ds))
     {
 
         int r1 = -1;
         int r2 = -1;
         twoRandom(r1, r2, lastCell);
-        // && 
+
         if (!isConnected(r1, r2, ds) && m.neighbors(r1, r2))
         {
-            i++;
-
             m.smashWall(r1, r2);
-            cout << "Neighbors " << r1 << ", " << r2 << " wall smashed below" << endl;
-            ds.unionSets(r1, r2);
-
-            ds.print();
-
+            ds.unionSets(ds.find(r1), ds.find(r2));
             if (seeIteration == "y")
             {
                 cout << "Neighbors " << r1 << ", " << r2 << " wall smashed below" << endl;
-
                 m.printMaze();
             }
         }
+    }
+    if (seeIteration != "y")
+    {
+        m.printMaze();
     }
 
     return 0;
@@ -70,13 +64,15 @@ int main(int argc, const char *argv[])
 
 void twoRandom(int &n1, int &n2, int maxN)
 {
-    n1 = rand() % maxN + 1;
-    n2 = rand() % maxN + 1;
+    n1 = rand() % (maxN + 1);
+    n2 = rand() % (maxN + 1);
 }
 
 bool isConnected(int n1, int n2, DisjSets &ds)
 {
-    return ds.find(n1) == ds.find(n2);
+    const int f1 = ds.find(n1);
+    const int f2 = ds.find(n2);
+    return f1 == f2;
 }
 
 void inputData(int &rows, int &cols, string &seeIteration)

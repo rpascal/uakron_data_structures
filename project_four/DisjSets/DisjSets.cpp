@@ -9,16 +9,6 @@ DisjSets::DisjSets(int numElements) : s(numElements, -1)
 {
 }
 
-void DisjSets::print()
-{
-	// std::cout << "Hello " << s.size() << endl;
-
-	for (std::vector<int>::const_iterator i = s.begin(); i != s.end(); ++i)
-		std::cout << *i << ' ';
-
-	cout << endl;
-}
-
 /**
  * Union two disjoint sets.
  * For simplicity, we assume root1 and root2 are distinct

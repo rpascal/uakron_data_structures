@@ -109,7 +109,6 @@ void inputData(int &rows, int &cols, string &seeIteration)
         {
             if (cols > 0)
             {
-                // cout << endl;
                 break;
             }
             else
@@ -134,7 +133,6 @@ void inputData(int &rows, int &cols, string &seeIteration)
         {
             if (seeIteration == "n" || seeIteration == "y")
             {
-                // cout << endl;
                 break;
             }
             else

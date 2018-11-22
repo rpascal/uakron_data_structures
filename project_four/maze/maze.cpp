@@ -1,7 +1,7 @@
 #include "maze.h"
 #include "../mazeCell/mazeCell.h"
 #include <iostream>
-#include <math.h> /* ceil */
+#include <math.h>
 
 using std::cout;
 using std::endl;
@@ -38,21 +38,13 @@ maze::maze(int r, int c)
 // with respect to cell)
 bool maze::neighbors(int cell, int neigh) const
 {
-    int cellCol = cell % getCol();
-    int cellRow = cell / getCol(); //floor((cell - 1) / getRow());
-
-    int neighCol = neigh % getCol();
-    int neighRow = neigh / getCol(); //floor((neigh - 1) / getRow());
+    int cellCol = determineColumn(cell);
+    int cellRow = determineRow(cell);
+    int neighCol = determineColumn(neigh);
+    int neighRow = determineRow(neigh);
 
     int colDif = cellCol - neighCol;
     int rowDif = cellRow - neighRow;
-
-    // cout << "cell: " << cell << " "
-    //      << "neigh: " << neigh << endl;
-    // cout << "cellCol: " << cellCol << " "
-    //      << "cellRow: " << cellRow << endl;
-    // cout << "neighCol: " << neighCol << " "
-    //      << "neighRow: " << neighRow << endl;
 
     if (abs(colDif) > 1 || abs(rowDif) > 1)
     {
@@ -68,11 +60,10 @@ bool maze::neighbors(int cell, int neigh) const
 void maze::smashWall(int cell, int neigh)
 {
 
-    int cellCol = cell % getCol();
-    int cellRow = cell / getCol(); //floor((cell - 1) / getRow());
-
-    int neighCol = neigh % getCol();
-    int neighRow = neigh / getCol(); //floor((neigh - 1) / getRow());
+    int cellCol = determineColumn(cell);
+    int cellRow = determineRow(cell);
+    int neighCol = determineColumn(neigh);
+    int neighRow = determineRow(neigh);
 
     int colDif = cellCol - neighCol;
     int rowDif = cellRow - neighRow;
@@ -148,5 +139,4 @@ void maze::printMaze()
         }
     }
     cout << endl;
-
 }
